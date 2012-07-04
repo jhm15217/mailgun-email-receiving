@@ -21,37 +21,15 @@ class EmailsController < ApplicationController
     end
   end
 
-  # GET /emails/new
-  # GET /emails/new.json
-  def new
-    @email = Email.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @email }
-    end
-  end
-
-  # GET /emails/1/edit
-  def edit
-    @email = Email.find(params[:id])
-  end
-
   # POST /emails
   # POST /emails.json
   def create
     @email = Email.new(
-      from: params[:email][:from],
-      to: params[:email][:to],
-      subject: params[:email][:subject],
-      body: params[:email][:body]
+      from: params['from'], 
+      to: params['to'], 
+      subject: params['subject'],
+      body: params['body-plain']
     )
-#    @email = Email.new(
-#      from: params['from'], 
-#      to: params['to'], 
-#      subject: params['subject'],
-#      body: params['body-plain']
-#    )
 
     respond_to do |format|
       if @email.save
@@ -59,22 +37,6 @@ class EmailsController < ApplicationController
         format.json { render json: @email, status: :created, location: @email }
       else
         format.html { render action: "new" }
-        format.json { render json: @email.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PUT /emails/1
-  # PUT /emails/1.json
-  def update
-    @email = Email.find(params[:id])
-
-    respond_to do |format|
-      if @email.update_attributes(params[:email])
-        format.html { redirect_to @email, notice: 'Email was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
         format.json { render json: @email.errors, status: :unprocessable_entity }
       end
     end
