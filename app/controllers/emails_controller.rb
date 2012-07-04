@@ -1,6 +1,10 @@
 class EmailsController < ApplicationController
+
+  # This is used to disable Rails request forger protection for this controller
+  # since we are receiving post data from mailgun
+  skip_before_filter :verify_authenticity_token, only: [:create]
+
   # GET /emails
-  # GET /emails.json
   def index
     @emails = Email.all
 
@@ -11,7 +15,6 @@ class EmailsController < ApplicationController
   end
 
   # GET /emails/1
-  # GET /emails/1.json
   def show
     @email = Email.find(params[:id])
 
@@ -22,7 +25,6 @@ class EmailsController < ApplicationController
   end
 
   # POST /emails
-  # POST /emails.json
   def create
     @email = Email.new(
       from: params['from'], 
@@ -43,7 +45,6 @@ class EmailsController < ApplicationController
   end
 
   # DELETE /emails/1
-  # DELETE /emails/1.json
   def destroy
     @email = Email.find(params[:id])
     @email.destroy
