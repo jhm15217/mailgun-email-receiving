@@ -40,7 +40,18 @@ class EmailsController < ApplicationController
   # POST /emails
   # POST /emails.json
   def create
-    @email = Email.new(params[:email])
+    @email = Email.new(
+      from: params[:email][:from],
+      to: params[:email][:to],
+      subject: params[:email][:subject],
+      body: params[:email][:body]
+    )
+#    @email = Email.new(
+#      from: params['from'], 
+#      to: params['to'], 
+#      subject: params['subject'],
+#      body: params['body-plain']
+#    )
 
     respond_to do |format|
       if @email.save
