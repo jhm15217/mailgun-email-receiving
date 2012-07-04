@@ -10,7 +10,6 @@ class EmailsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @emails }
     end
   end
 
@@ -20,7 +19,6 @@ class EmailsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @email }
     end
   end
 
@@ -36,15 +34,7 @@ class EmailsController < ApplicationController
       body: params['body-plain']
     )
 
-    respond_to do |format|
-      if @email.save
-        format.html { redirect_to @email, notice: 'Email was successfully created.' }
-        format.json { render json: @email, status: :created, location: @email }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @email.errors, status: :unprocessable_entity }
-      end
-    end
+    @email.save
   end
 
   # DELETE /emails/1
@@ -54,7 +44,6 @@ class EmailsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to emails_url }
-      format.json { head :no_content }
     end
   end
 end
