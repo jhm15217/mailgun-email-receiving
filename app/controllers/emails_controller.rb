@@ -24,11 +24,14 @@ class EmailsController < ApplicationController
     end
   end
 
+  # Used to capture emails from Mailgun.
+  # Mailgun is directed through its routes configuration to send emails towards
+  # heroku app at app_name.herokuapp.com/emails
   # POST /emails
   def create
     @email = Email.new(
-      from: params['from'], 
-      to: params['to'], 
+      from: params['sender'], 
+      to: params['recipient'], 
       subject: params['subject'],
       body: params['body-plain']
     )
