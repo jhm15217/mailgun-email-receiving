@@ -7,6 +7,7 @@ gem 'rails', '3.2.6'
 
 group :development do
   gem 'sqlite3'
+  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git' 
 end
 
 group :production do
